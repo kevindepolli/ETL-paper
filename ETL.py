@@ -138,10 +138,18 @@ for i in range(0, 110, 10):
     link = get_link(link_tag)
 
     # add in paper repo dict
-    final = add_in_paper_repo(papername, year, author, cite, publication, link)
+    try:
+        if len(papername) == len(year) == len(author) == len(cite) == len(publication) == len(link):
+            final = add_in_paper_repo(papername, year, author, cite, publication, link)
+        else:
+            print(f"Length mismatch at iteration {i}:")
+            print(f"papername: {len(papername)}, year: {len(year)}, author: {len(author)}, cite: {len(cite)}, publication: {len(publication)}, link: {len(link)}")
+    except Exception as e:
+        print(f"Error at iteration {i}: {e}")
+
     print('Resultado na ', i, 'iteração:\n', final)
     # use sleep to avoid status code 429
     sleep(30)
 
 print('Resultado final:\n', final[:10])
-final.to_csv('aerial_image_reserachpapers.csv', sep=',', index=False,header=True)
+final.to_csv('simulated_annealing_researchpapers.csv', sep=',', index=False, header=True)
